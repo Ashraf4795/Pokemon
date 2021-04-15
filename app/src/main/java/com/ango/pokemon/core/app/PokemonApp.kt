@@ -1,13 +1,22 @@
 package com.ango.pokemon.core.app
 
 import android.app.Application
-import android.util.Log
+import com.ango.pokemon.core.di.coreModule
+import com.ango.pokemon.feature.pokemon_main_screen.di.mainScreenModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class PokemonApp : Application() {
     val TAG: String = "Pokemon App tag"
 
     override fun onCreate() {
         super.onCreate()
-        Log.d(TAG, "PokemonApp created")
+        startKoin {
+            androidContext(this@PokemonApp)
+            modules(
+                    coreModule,
+                    mainScreenModule,
+            )
+        }
     }
 }
