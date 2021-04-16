@@ -36,8 +36,8 @@ android {
 
 dependencies {
 
-    def nav_version = "2.3.0-alpha06"
-    def lottie_version = "3.4.0"
+    def nav_version = "2.3.5"
+    def lottie_version = "3.6.0"
     def koin_version = "2.2.2"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -98,6 +98,7 @@ dependencies {
     implementation "org.koin:koin-android-scope:$koin_version"
     // Koin Android ViewModel features
     implementation "org.koin:koin-android-viewmodel:$koin_version"
+
 
 //    //swip to refresh
 //    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'

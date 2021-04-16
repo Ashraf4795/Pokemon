@@ -7,5 +7,6 @@ data class Stat(
         val baseStat: Long? = null,
 
         val effort: Long? = null,
+
         val stat: PairNameUrl? = null
 )
