@@ -9,7 +9,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <!--pokemon cards background colors-->
-    <color name="green">#7ec9ab</color>
+    <color name="green">#48d0b0</color>57dbc0
+    <color name="green_opacity">#57dbc0</color>
     <color name="brown">#C5915D</color>
     <color name="gray">#B3B8BB</color>
     <color name="blue">#3B4CCA</color>

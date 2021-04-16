@@ -8,4 +8,6 @@ interface RemoteDataSourceContract {
 
     suspend fun getPokemon(): Pokemon
     suspend fun getPokemonDetails(id: Long): PokemonDetails
+    suspend fun loadNextPage(offset: Int, limit: Int, count: Int): Pokemon
+
 }
