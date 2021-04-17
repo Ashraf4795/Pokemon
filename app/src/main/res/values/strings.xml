@@ -5,5 +5,27 @@
     <string name="pokemondex">Pokedex</string>
     <string name="search_hint">search</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="about">About</string>
+
+    <string name="base_state">Base state</string>
+
+    <string name="moves">Moves</string>
+
+    <string name="hp">HP</string>
+
+    <string name="attack">Attack</string>
+
+    <string name="defense">Defense</string>
+
+    <string name="sp.attack">Sp. Atk</string>
+
+    <string name="sp.def">Sp. Def</string>
+
+    <string name="speed">Speed</string>
+
+    <string name="total">Total</string>
+
+    <string name="egg_groups">Egg Groups</string>
+
+
 </resources>

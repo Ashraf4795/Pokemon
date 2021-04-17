@@ -5,12 +5,12 @@
     android:id="@+id/pokemon_details_root_id"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green_opacity"
+    android:background="@color/green"
     tools:context=".feature.pokemon_details_screen.view.PokemonDetailsFragment">
 
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/pokemon_details_back_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -19,4 +19,100 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/white" />
+
+    <ImageView
+        android:id="@+id/fav_icon_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:src="@drawable/ic_baseline_favorite_border_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/pokemon_name_id"
+        style="@style/headline_text_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Charmander"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/pokemon_details_back_id"
+        app:layout_constraintTop_toBottomOf="@+id/pokemon_details_back_id" />
+
+    <TextView
+        android:id="@+id/pokemon_idNumber_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="#001"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/pokemon_name_id"
+        app:layout_constraintEnd_toEndOf="@+id/fav_icon_id"
+        app:layout_constraintTop_toTopOf="@+id/pokemon_name_id" />
+
+    <!--pokemon types-->
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="@+id/pokemon_idNumber_id"
+        app:layout_constraintStart_toStartOf="@+id/pokemon_name_id"
+        app:layout_constraintTop_toBottomOf="@id/pokemon_name_id">
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fire"
+                android:textColor="@color/white"
+                android:visibility="visible"
+                app:chipBackgroundColor="@color/green_opacity" />
+        </com.google.android.material.chip.ChipGroup>
+
+
+    </HorizontalScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="140dp"
+        android:paddingBottom="-10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pokemon_details_vp_id"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_gravity="bottom" />
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop=""
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/pokemon"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toTopOf="@id/cardView" />
+
+
+    <!--end pokemon types-->
 </androidx.constraintlayout.widget.ConstraintLayout>
