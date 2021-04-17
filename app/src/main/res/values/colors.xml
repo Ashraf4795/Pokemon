@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--pokemon cards background colors-->
+    <color name="green">#48d0b0</color>57dbc0
+    <color name="green_opacity">#57dbc0</color>
+    <color name="brown">#C5915D</color>
+    <color name="gray">#B3B8BB</color>
+    <color name="blue">#3B4CCA</color>
+    <color name="pink">#FAD0D5</color>
+
+    <color name="purple">#B38BB3</color>
+    <color name="red">#e56434</color>
+    <color name="yellow">#FFDE00</color>
 </resources>

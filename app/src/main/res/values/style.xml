@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="type_text_style">
+        <item name="android:textSize">10sp</item>
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/titillium_web_regular</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="headline_text_style">
+        <item name="android:textSize">32sp</item>
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/roboto_condensed_bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>
