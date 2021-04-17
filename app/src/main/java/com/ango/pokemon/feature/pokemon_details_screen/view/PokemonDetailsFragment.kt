@@ -11,10 +11,13 @@ import com.ango.pokemon.core.data.model.PokemonDetails
 import com.ango.pokemon.core.extenstion.loadImage
 import com.ango.pokemon.core.utils.status_wrapper.Status
 import com.ango.pokemon.databinding.FragmentPokemonDetailsBinding
+import com.ango.pokemon.feature.pokemon_details_screen.view.pokemon_details_pages.adapter.PokemonDetailsPagesAdapter
 import com.ango.pokemon.feature.pokemon_details_screen.view_model.PokemonDetailsViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
+
 class PokemonDetailsFragment : Fragment() {
+
     val TAG = "PokemonDetailsFragment"
 
     private lateinit var pokemonDetailsBinding: FragmentPokemonDetailsBinding
@@ -28,23 +31,29 @@ class PokemonDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val pagerAdapter = PokemonDetailsPagesAdapter(requireActivity())
+        pokemonDetailsBinding.pokemonDetailsVpId.adapter = pagerAdapter
         initPokemonViewModelObserver()
     }
 
     private fun initPokemonViewModelObserver() {
         pokemonDetailsviewModel.getPokemonDetails(pokemonDetailsArg.pokemonDetailsId)
-        pokemonDetailsviewModel.pokemonDetails.observe(viewLifecycleOwner) { state ->
-            when (state.status) {
-                Status.LOADING -> {
-                    //binding.pokemonLoaderId.visibility = View.VISIBLE
-                    Log.d(TAG, "loading")
-                }
-                Status.SUCCESS -> {
-                    //binding.pokemonLoaderId.visibility = View.INVISIBLE
-                    state.data?.let { pokemonDetails ->
-                        updateUI(pokemonDetails)
+            .observe(viewLifecycleOwner) { state ->
+                when (state.status) {
+                    Status.LOADING -> {
+                        //binding.pokemonLoaderId.visibility = View.VISIBLE
+                        Log.d(TAG, "loading")
                     }
-                }
+                    Status.SUCCESS -> {
+                        //binding.pokemonLoaderId.visibility = View.INVISIBLE
+                        state.data?.let { pokemonDetails ->
+                            updateUI(pokemonDetails)
+                            Log.d(
+                                TAG,
+                                "id: ${pokemonDetailsArg.pokemonDetailsId} data:$pokemonDetails"
+                            )
+                        }
+                    }
                 else -> {
                     Log.d(TAG, "${state.message}")
                 }
@@ -70,9 +79,12 @@ class PokemonDetailsFragment : Fragment() {
     private fun updateUI(pokemonDetails: PokemonDetails) {
         with(pokemonDetailsBinding) {
             pokemonNameId.text = pokemonDetails.name
-            pokemonIdNumberId.text = pokemonDetails.id.toString()
+            pokemonIdNumberId.text = "#" + pokemonDetails.id.toString()
             pokemonDetails.getSpritesOfficialArtWork()?.let { url ->
                 pokemonImgId.loadImage(url, 1)
+            }
+            pokemonDetails.types?.map { it.type?.name }?.forEach {
+                pokemonTypeChipGroupId.addView(Chip(it))
             }
 
         }
