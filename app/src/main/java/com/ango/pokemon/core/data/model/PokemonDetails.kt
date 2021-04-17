@@ -1,5 +1,6 @@
 package com.ango.pokemon.core.data.model
 
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class PokemonDetails(
@@ -9,6 +10,9 @@ data class PokemonDetails(
         val name: String? = null,
 
         val abilities: List<PokemonAbility>? = null,
+
+        @Expose(deserialize = false)
+        var species: Species? = null,
 
         @SerializedName("base_experience")
         val baseExperience: Long? = null,
@@ -30,7 +34,11 @@ data class PokemonDetails(
         val types: List<Type>? = null,
 
         val weight: Long? = null,
-)
+) {
+        fun setPokemonSpecies(species: Species) {
+                this.species = species
+        }
+}
 
 
 

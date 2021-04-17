@@ -2,6 +2,7 @@ package com.ango.pokemon.core.data.source.remote
 
 import com.ango.pokemon.core.data.model.Pokemon
 import com.ango.pokemon.core.data.model.PokemonDetails
+import com.ango.pokemon.core.data.model.Species
 import com.ango.pokemon.core.data.source.remote.retrofit.PokemonApiService
 import com.ango.pokemon.core.utils.checkPokemonOffset
 
@@ -20,5 +21,9 @@ class RemoteDataSourceImpl(val pokemonApiService: PokemonApiService) : RemoteDat
         } else {
             return Pokemon()
         }
+    }
+
+    override suspend fun getPokemonSpecies(id: Long): Species {
+        return pokemonApiService.getPokemonSpecies(id)
     }
 }

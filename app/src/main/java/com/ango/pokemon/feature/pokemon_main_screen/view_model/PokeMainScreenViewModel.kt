@@ -29,6 +29,11 @@ class PokeMainScreenViewModel(
                 if (pokemonLoadOffset + LOAD_LIMIT <= pokemonCount) {
                     for (next in 1..LOAD_LIMIT) {
                         val pokemonDetail = repository.getPokemonDetails(pokemonLoadOffset)
+                        pokemonDetail.setPokemonSpecies(
+                            repository.getPokemonSpecies(
+                                pokemonDetail.id ?: 1
+                            )
+                        )
                         pokemonLoadOffset += 1
                         pokemonDetailsCollection.add(pokemonDetail)
                     }

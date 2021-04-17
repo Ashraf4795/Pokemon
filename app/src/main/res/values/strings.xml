@@ -2,4 +2,8 @@
     <string name="app_name">Pokemon</string>
     <string name="pokemon_item_iv_description">Pokemon Item Image</string>
     <string name="all_pokemon_loaded">All Pokemon Loaded</string>
+    <string name="pokemondex">Pokedex</string>
+    <string name="search_hint">search</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.ango.pokemon.feature.pokemon_main_screen.view
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View.VISIBLE
 import android.view.ViewGroup
@@ -9,7 +10,10 @@ import com.ango.pokemon.core.data.model.Type
 import com.ango.pokemon.core.extenstion.loadImage
 import com.ango.pokemon.databinding.PokemonItemBinding
 
-class PokemonListAdapter(private val adapterPokemonDetailsCollection: MutableList<PokemonDetails>) :
+class PokemonListAdapter(
+    private val adapterPokemonDetailsCollection: MutableList<PokemonDetails>,
+    private val context: Context
+) :
     RecyclerView.Adapter<PokemonListAdapter.PokemonDetailsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonDetailsViewHolder {
@@ -30,12 +34,9 @@ class PokemonListAdapter(private val adapterPokemonDetailsCollection: MutableLis
                 pokemonAtPosition.sprites?.other?.officialArtwork?.frontDefault ?: "", 50
             )
             pokemonNameId.text = pokemonAtPosition.name
-            val types = pokemonAtPosition.types
-            setTypes(this, types)
-
+            setTypes(this, pokemonAtPosition.types)
         }
     }
-
 
     override fun getItemCount(): Int {
         return adapterPokemonDetailsCollection.size
