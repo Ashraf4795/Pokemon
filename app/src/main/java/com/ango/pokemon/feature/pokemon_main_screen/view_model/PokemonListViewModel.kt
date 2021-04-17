@@ -13,7 +13,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PokeMainScreenViewModel(
+class PokemonListViewModel(
     val repository: Repository,
     val IO: CoroutineDispatcher = Dispatchers.IO
 ) : BaseViewModel(repository, IO) {

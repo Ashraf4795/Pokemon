@@ -13,15 +13,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ango.pokemon.core.utils.status_wrapper.Status
 import com.ango.pokemon.databinding.FragmentPokemonListScreenBinding
-import com.ango.pokemon.feature.pokemon_main_screen.view_model.PokeMainScreenViewModel
+import com.ango.pokemon.feature.pokemon_main_screen.view_model.PokemonListViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class PokemonListFragment : Fragment() {
     private val TAG = "PokemonListScreen"
 
-    private lateinit var binding: FragmentPokemonListScreenBinding
-    private val pokemonViewModel: PokeMainScreenViewModel by viewModel()
+    private lateinit var pokemonListBinding: FragmentPokemonListScreenBinding
+    private val pokemonViewModel: PokemonListViewModel by viewModel()
     private lateinit var pokemonRecyclerView: RecyclerView
     private lateinit var pokemonListAdapter: PokemonListAdapter
 
@@ -29,8 +29,8 @@ class PokemonListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPokemonListScreenBinding.inflate(layoutInflater)
-        return binding.root
+        pokemonListBinding = FragmentPokemonListScreenBinding.inflate(layoutInflater)
+        return pokemonListBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,9 +41,9 @@ class PokemonListFragment : Fragment() {
     }
 
     private fun initPokemonRecyclerView() {
-        pokemonRecyclerView = binding.pokemonRvId
+        pokemonRecyclerView = pokemonListBinding.pokemonRvId
         pokemonRecyclerView.layoutManager = GridLayoutManager(requireActivity(), 2)
-        pokemonListAdapter = PokemonListAdapter(mutableListOf(), requireContext())
+        pokemonListAdapter = PokemonListAdapter(mutableListOf())
         pokemonRecyclerView.adapter = pokemonListAdapter
         pokemonRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -61,15 +61,14 @@ class PokemonListFragment : Fragment() {
     }
 
     private fun initPokemonObserver() {
-        pokemonViewModel.getPokemon()
         pokemonViewModel.pokemon.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
-                    binding.pokemonLoaderId.visibility = VISIBLE
+                    pokemonListBinding.pokemonLoaderId.visibility = VISIBLE
                     Log.d(TAG, "loading")
                 }
                 Status.SUCCESS -> {
-                    binding.pokemonLoaderId.visibility = INVISIBLE
+                    pokemonListBinding.pokemonLoaderId.visibility = INVISIBLE
                     Log.d(TAG, "${it.data}")
                     it.data?.let { pokemon ->
                         pokemonViewModel.getPokemonDetails()
@@ -86,11 +85,11 @@ class PokemonListFragment : Fragment() {
         pokemonViewModel.pokemonDetails.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
-                    binding.pokemonLoaderId.visibility = VISIBLE
+                    pokemonListBinding.pokemonLoaderId.visibility = VISIBLE
                     Log.d(TAG, "loading")
                 }
                 Status.SUCCESS -> {
-                    binding.pokemonLoaderId.visibility = INVISIBLE
+                    pokemonListBinding.pokemonLoaderId.visibility = INVISIBLE
                     Log.d(TAG, "${it.data}")
                     it.data?.let { pokemonList ->
                         pokemonListAdapter.setPokemonDetailsList(pokemonList)
