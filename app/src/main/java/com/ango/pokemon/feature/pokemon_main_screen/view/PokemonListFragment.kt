@@ -30,8 +30,7 @@ class PokemonListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPokemonListScreenBinding.inflate(layoutInflater)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
