@@ -17,8 +17,7 @@
         android:layout_marginTop="32dp"
         android:src="@drawable/ic_baseline_arrow_back_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/fav_icon_id"
@@ -27,9 +26,9 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:src="@drawable/ic_baseline_favorite_border_24"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/pokemon_name_id"
@@ -62,23 +61,12 @@
         app:layout_constraintEnd_toEndOf="@+id/pokemon_idNumber_id"
         app:layout_constraintStart_toStartOf="@+id/pokemon_name_id"
         app:layout_constraintTop_toBottomOf="@id/pokemon_name_id">
+
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/pokemon_type_chip_group_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:singleLine="true">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fire"
-                android:textColor="@color/white"
-                android:visibility="visible"
-                app:chipBackgroundColor="@color/green_opacity" />
-        </com.google.android.material.chip.ChipGroup>
-
-
+            app:singleLine="true" />
     </HorizontalScrollView>
 
     <androidx.cardview.widget.CardView

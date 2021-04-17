@@ -11,12 +11,26 @@
     <!--pokemon cards background colors-->
     <color name="green">#48d0b0</color>
     <color name="green_opacity">#AB48D0B0</color>
+
     <color name="brown">#C5915D</color>
+    <color name="brown_opacity">#ABC5915D</color>
+
     <color name="gray">#B3B8BB</color>
+    <color name="gray_opacity">#ABB3B8BB</color>
+
     <color name="blue">#3B4CCA</color>
+    <color name="blue_opacity">#AB3B4CCA</color>
+
     <color name="pink">#FAD0D5</color>
+    <color name="pink_opacity">#ABFAD0D5</color>
 
     <color name="purple">#B38BB3</color>
+    <color name="purple_opacity">#ABB38BB3</color>
+
     <color name="red">#e56434</color>
+    <color name="red_opacity">#ABE56434</color>
+
     <color name="yellow">#FFDE00</color>
+    <color name="yellow_opacity">#ABFFDE00</color>
+
 </resources>

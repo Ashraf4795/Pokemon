@@ -5,14 +5,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import com.ango.pokemon.R
+import com.ango.pokemon.core.app.DEFAULT_COLOR
+import com.ango.pokemon.core.app.pokemonColors
 import com.ango.pokemon.core.data.model.PokemonDetails
 import com.ango.pokemon.core.extenstion.loadImage
+import com.ango.pokemon.core.utils.resolveColor
 import com.ango.pokemon.core.utils.status_wrapper.Status
 import com.ango.pokemon.databinding.FragmentPokemonDetailsBinding
 import com.ango.pokemon.feature.pokemon_details_screen.view.pokemon_details_pages.adapter.PokemonDetailsPagesAdapter
 import com.ango.pokemon.feature.pokemon_details_screen.view_model.PokemonDetailsViewModel
+import com.google.android.material.chip.Chip
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -66,7 +73,14 @@ class PokemonDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         pokemonDetailsBinding = FragmentPokemonDetailsBinding.inflate(layoutInflater)
+        setClickListeners()
         return pokemonDetailsBinding.root
+    }
+
+    private fun setClickListeners() {
+        pokemonDetailsBinding.pokemonDetailsBackId.setOnClickListener { view ->
+            view.findNavController().navigateUp()
+        }
     }
 
 
@@ -77,16 +91,37 @@ class PokemonDetailsFragment : Fragment() {
     }
 
     private fun updateUI(pokemonDetails: PokemonDetails) {
+        val speciesColor = pokemonDetails.species?.color?.name ?: DEFAULT_COLOR
+        val isWhite = (speciesColor == "white")
+        if (isWhite) {
+            changeUIColorToBlack()
+        }
+
         with(pokemonDetailsBinding) {
+            pokemonDetailsRootId.setBackgroundResource(pokemonColors.getValue(speciesColor).first)
             pokemonNameId.text = pokemonDetails.name
             pokemonIdNumberId.text = "#" + pokemonDetails.id.toString()
             pokemonDetails.getSpritesOfficialArtWork()?.let { url ->
                 pokemonImgId.loadImage(url, 1)
             }
-            pokemonDetails.types?.map { it.type?.name }?.forEach {
-                pokemonTypeChipGroupId.addView(Chip(it))
+            pokemonDetails.types?.map { it.type?.name }?.forEach { typeName ->
+                val typeChip = Chip(requireContext())
+                typeChip.text = typeName
+                typeChip.chipBackgroundColor = resolveColor(requireContext(), speciesColor, false)
+                if (isWhite) {
+                    typeChip.setTextColor(getColorStateList(requireContext(), R.color.black))
+                }
+                pokemonTypeChipGroupId.addView(typeChip)
             }
 
+        }
+    }
+
+    private fun changeUIColorToBlack() {
+        val resourceColor = R.color.black
+        with(pokemonDetailsBinding) {
+            pokemonNameId.setTextColor(getColorStateList(requireContext(), resourceColor))
+            pokemonNameId.setTextColor(getColorStateList(requireContext(), resourceColor))
         }
     }
 }
