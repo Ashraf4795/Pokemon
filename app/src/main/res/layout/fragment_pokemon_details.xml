@@ -62,8 +62,8 @@
         app:layout_constraintEnd_toEndOf="@+id/pokemon_idNumber_id"
         app:layout_constraintStart_toStartOf="@+id/pokemon_name_id"
         app:layout_constraintTop_toBottomOf="@id/pokemon_name_id">
-
         <com.google.android.material.chip.ChipGroup
+            android:id="@+id/pokemon_type_chip_group_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:singleLine="true">
@@ -82,7 +82,7 @@
     </HorizontalScrollView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/pokemon_details_vp_card_id"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="140dp"
@@ -102,16 +102,15 @@
     </androidx.cardview.widget.CardView>
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/pokemon_img_id"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_marginTop=""
         android:layout_marginBottom="32dp"
         android:src="@drawable/pokemon"
-        app:layout_constraintBottom_toTopOf="@+id/cardView"
-        app:layout_constraintEnd_toEndOf="@+id/cardView"
-        app:layout_constraintStart_toStartOf="@+id/cardView"
-        app:layout_constraintTop_toTopOf="@id/cardView" />
+        app:layout_constraintBottom_toTopOf="@+id/pokemon_details_vp_card_id"
+        app:layout_constraintEnd_toEndOf="@+id/pokemon_details_vp_card_id"
+        app:layout_constraintStart_toStartOf="@+id/pokemon_details_vp_card_id"
+        app:layout_constraintTop_toTopOf="@id/pokemon_details_vp_card_id" />
 
 
     <!--end pokemon types-->

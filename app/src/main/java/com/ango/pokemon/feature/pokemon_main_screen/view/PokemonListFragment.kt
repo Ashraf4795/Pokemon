@@ -37,7 +37,6 @@ class PokemonListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initPokemonRecyclerView()
         initObserver()
-
     }
 
     private fun initPokemonRecyclerView() {
