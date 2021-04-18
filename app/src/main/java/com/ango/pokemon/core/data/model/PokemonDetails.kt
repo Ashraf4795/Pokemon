@@ -38,6 +38,10 @@ data class PokemonDetails(
         fun setPokemonSpecies(species: Species) {
                 this.species = species
         }
+
+        fun getSpritesOfficialArtWork(): String? {
+                return sprites?.other?.officialArtwork?.frontDefault
+        }
 }
 
 

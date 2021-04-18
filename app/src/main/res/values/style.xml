@@ -10,10 +10,31 @@
         <item name="android:layout_marginTop">8dp</item>
     </style>
 
+    <style name="state_text_view">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+
+    <style name="state_number_text_view">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="headline_text_style">
         <item name="android:textSize">32sp</item>
         <item name="textAllCaps">false</item>
-        <item name="fontFamily">@font/roboto_condensed_bold</item>
+        <item name="fontFamily">@font/titillium_web_bold</item>
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="about_text_style">
+        <item name="android:textSize">10sp</item>
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/titillium_web_regular</item>
+        <item name="android:layout_marginTop">8dp</item>
+
     </style>
 </resources>

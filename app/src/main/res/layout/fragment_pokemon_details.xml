@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pokemon_details_root_id"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
+    tools:context=".feature.pokemon_details_screen.view.PokemonDetailsFragment">
+
+
+    <ImageView
+        android:id="@+id/pokemon_details_back_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/fav_icon_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:src="@drawable/ic_baseline_favorite_border_24"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pokemon_name_id"
+        style="@style/headline_text_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Charmander"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/pokemon_details_back_id"
+        app:layout_constraintTop_toBottomOf="@+id/pokemon_details_back_id" />
+
+    <TextView
+        android:id="@+id/pokemon_idNumber_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/pokemon_name_id"
+        app:layout_constraintEnd_toEndOf="@+id/fav_icon_id"
+        app:layout_constraintTop_toTopOf="@+id/pokemon_name_id"
+        tools:text="#001" />
+
+    <!--pokemon types-->
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="@+id/pokemon_idNumber_id"
+        app:layout_constraintStart_toStartOf="@+id/pokemon_name_id"
+        app:layout_constraintTop_toBottomOf="@id/pokemon_name_id">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/pokemon_type_chip_group_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true" />
+    </HorizontalScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/pokemon_details_vp_card_id"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:paddingBottom="-10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokemon_img_id">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pokemon_details_vp_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom" />
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/pokemon_img_id"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="@+id/pokemon_details_vp_card_id"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/pokemon_details_vp_card_id"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+
+
+    <!--end pokemon types-->
+</androidx.constraintlayout.widget.ConstraintLayout>
