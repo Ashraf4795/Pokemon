@@ -7,14 +7,15 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ango.pokemon.R
 import com.ango.pokemon.core.utils.status_wrapper.Status
 import com.ango.pokemon.databinding.FragmentPokemonListScreenBinding
 import com.ango.pokemon.feature.pokemon_main_screen.view_model.PokemonListViewModel
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -25,6 +26,9 @@ class PokemonListFragment : Fragment() {
     private val pokemonViewModel: PokemonListViewModel by viewModel()
     private lateinit var pokemonRecyclerView: RecyclerView
     private val pokemonListAdapter: PokemonListAdapter = PokemonListAdapter(mutableListOf())
+
+    private lateinit var loadMoreSnackBar: Snackbar
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,13 +59,25 @@ class PokemonListFragment : Fragment() {
                 val totalItemCount = linearLayoutManager.itemCount
                 val lastItemVisible = linearLayoutManager.findLastVisibleItemPosition()
                 if (totalItemCount <= (lastItemVisible + 1) && dy > 0) {
-                    if (pokemonListBinding.loadMoreBtnId.visibility != VISIBLE) {
-                        pokemonListBinding.loadMoreBtnId.visibility = VISIBLE
-                        Toast.makeText(requireActivity(), "visible", Toast.LENGTH_SHORT).show()
+                    loadMoreSnackBar =
+                        Snackbar.make(recyclerView, R.string.load_more, Snackbar.LENGTH_LONG)
+                    loadMoreSnackBar.setAction(R.string.load_more_action_text) {
+                        pokemonViewModel.nextPokemonPage()
+                        loadMoreSnackBar.dismiss()
                     }
+                    loadMoreSnackBar.show()
                 }
             }
         })
+    }
+
+    private fun buildLoadMoreSnackBar(view: View): Snackbar {
+        val snackBar = Snackbar.make(view, "Load More", Snackbar.LENGTH_LONG)
+        snackBar.setAction("YES") {
+            pokemonViewModel.nextPokemonPage()
+            snackBar.dismiss()
+        }
+        return snackBar
     }
 
     private fun initObserver() {

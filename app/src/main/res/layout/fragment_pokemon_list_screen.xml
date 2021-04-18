@@ -98,7 +98,7 @@
             android:backgroundTint="@color/white"
             android:textAllCaps="false"
             android:textColor="@color/black"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/pokemon_rv_id"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
