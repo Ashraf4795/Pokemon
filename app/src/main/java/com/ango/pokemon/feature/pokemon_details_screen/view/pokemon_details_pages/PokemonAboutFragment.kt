@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.ango.pokemon.R
 import com.ango.pokemon.core.data.model.PokemonDetails
 import com.ango.pokemon.core.utils.status_wrapper.Status
 import com.ango.pokemon.databinding.FragmentPokemonAboutBinding
@@ -51,12 +52,22 @@ class PokemonAboutFragment : Fragment() {
 
     private fun updatePokemonAboutUI(pokemonDetails: PokemonDetails) {
         with(aboutBinding) {
-            weightValueId.text = pokemonDetails.weight.toString()
-            heightValueId.text = pokemonDetails.height.toString()
+            //calculate weight from hectograms to gram (1 hectograms equal 100 grams)
+            val weight = pokemonDetails.weight?.times(100L).toString() + " lbs"
+
+            //calculate height from decimetres to centimetres (1 decimetres equal 10 centimetres)
+            val height = pokemonDetails.height?.times(10L).toString() + " cm"
+            weightValueId.text = weight
+            heightValueId.text = height
             abilitiesValueId.text =
                 pokemonDetails.abilities?.map { it.ability?.name }?.joinToString()
             eggGroupValueId.text = pokemonDetails.species?.eggGroup?.map { it.name }?.joinToString()
-            isDefaultValueId.text = pokemonDetails.isDefault?.toString()
+            isDefaultValueId.text = if (pokemonDetails.isDefault == true) {
+                getString(R.string.yes)
+            } else {
+                getString(R.string.no)
+            }
+
         }
     }
 }

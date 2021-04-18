@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ango.pokemon.R
 import com.ango.pokemon.core.app.DEFAULT_COLOR
+import com.ango.pokemon.core.app.pagesNames
 import com.ango.pokemon.core.app.pokemonColors
 import com.ango.pokemon.core.data.model.PokemonDetails
 import com.ango.pokemon.core.extenstion.loadImage
@@ -20,6 +21,7 @@ import com.ango.pokemon.databinding.FragmentPokemonDetailsBinding
 import com.ango.pokemon.feature.pokemon_details_screen.view.pokemon_details_pages.adapter.PokemonDetailsPagesAdapter
 import com.ango.pokemon.feature.pokemon_details_screen.view_model.PokemonDetailsViewModel
 import com.google.android.material.chip.Chip
+import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -38,8 +40,15 @@ class PokemonDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val pokemonDetailsPagerAdapter = PokemonDetailsPagesAdapter(requireActivity())
         pokemonDetailsBinding.pokemonDetailsVpId.adapter = pokemonDetailsPagerAdapter
+
+        val tabLayout = pokemonDetailsBinding.pokemonDetailsPagesTabId
+        TabLayoutMediator(tabLayout, pokemonDetailsBinding.pokemonDetailsVpId) { tab, position ->
+            tab.text = getString(pagesNames.getValue(position))
+        }.attach()
+
         initPokemonViewModelObserver()
     }
 
