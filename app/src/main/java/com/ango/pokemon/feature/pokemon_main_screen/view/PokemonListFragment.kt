@@ -24,34 +24,29 @@ class PokemonListFragment : Fragment() {
     private lateinit var pokemonListBinding: FragmentPokemonListScreenBinding
     private val pokemonViewModel: PokemonListViewModel by viewModel()
     private lateinit var pokemonRecyclerView: RecyclerView
-    private lateinit var pokemonListAdapter: PokemonListAdapter
-
+    private val pokemonListAdapter: PokemonListAdapter = PokemonListAdapter(mutableListOf())
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         pokemonListBinding = FragmentPokemonListScreenBinding.inflate(layoutInflater)
         initClickListeners()
+        initPokemonRecyclerView()
+        initObserver()
         return pokemonListBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initPokemonRecyclerView()
-        initObserver()
-    }
 
     private fun initClickListeners() {
         pokemonListBinding.loadMoreBtnId.setOnClickListener {
             it.visibility = INVISIBLE
-            pokemonViewModel.getPokemonDetails()
+            pokemonViewModel.nextPokemonPage()
         }
     }
 
     private fun initPokemonRecyclerView() {
         pokemonRecyclerView = pokemonListBinding.pokemonRvId
         pokemonRecyclerView.layoutManager = GridLayoutManager(requireActivity(), 2)
-        pokemonListAdapter = PokemonListAdapter(mutableListOf())
         pokemonRecyclerView.adapter = pokemonListAdapter
         pokemonRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -85,7 +80,11 @@ class PokemonListFragment : Fragment() {
                     pokemonListBinding.pokemonLoaderId.visibility = INVISIBLE
                     Log.d(TAG, "${it.data}")
                     it.data?.let { pokemon ->
-                        pokemonViewModel.getPokemonDetails()
+                        pokemon.results?.let { pokemonResult ->
+                            pokemonViewModel.getPokemonDetails(
+                                pokemonResult
+                            )
+                        }
                     }
                 }
                 else -> {

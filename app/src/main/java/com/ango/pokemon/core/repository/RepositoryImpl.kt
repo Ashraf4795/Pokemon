@@ -21,4 +21,11 @@ class RepositoryImpl(
         return remoteDataSource.getPokemonSpecies(id)
     }
 
+    override suspend fun getPokemonDetailsByUrl(url: String): PokemonDetails {
+        return remoteDataSource.getPokemonDetailsByUrl(url)
+    }
+
+    override suspend fun nextPokemonPage(nextPokemonPageUrl: String): Pokemon {
+        return remoteDataSource.nextPokemonPage(nextPokemonPageUrl)
+    }
 }
