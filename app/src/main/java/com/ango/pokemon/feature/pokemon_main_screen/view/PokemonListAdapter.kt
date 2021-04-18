@@ -18,6 +18,9 @@ class PokemonListAdapter(
     private val adapterPokemonDetailsCollection: MutableList<PokemonDetails>
 ) : RecyclerView.Adapter<PokemonListAdapter.PokemonDetailsViewHolder>() {
 
+    private var filteredPokemonDetailsList = mutableListOf<PokemonDetails>()
+
+    private val backupPokemonDetailsList = adapterPokemonDetailsCollection.toMutableList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonDetailsViewHolder {
         return PokemonDetailsViewHolder(
             PokemonItemBinding.inflate(
@@ -91,7 +94,20 @@ class PokemonListAdapter(
     }
 
     fun setPokemonDetailsList(pokemonDetailsList: MutableList<PokemonDetails>) {
+        val lastPosition = adapterPokemonDetailsCollection.size
         adapterPokemonDetailsCollection += pokemonDetailsList
+        backupPokemonDetailsList += pokemonDetailsList
+        notifyItemRangeChanged(lastPosition, adapterPokemonDetailsCollection.size)
+    }
+
+    fun searchFor(query: String) {
+        adapterPokemonDetailsCollection.clear()
+        adapterPokemonDetailsCollection.addAll(backupPokemonDetailsList)
+        filteredPokemonDetailsList =
+            adapterPokemonDetailsCollection.filter { it.name?.contains(query) ?: false }
+                .toMutableList()
+        adapterPokemonDetailsCollection.clear()
+        adapterPokemonDetailsCollection.addAll(filteredPokemonDetailsList)
         notifyDataSetChanged()
     }
 

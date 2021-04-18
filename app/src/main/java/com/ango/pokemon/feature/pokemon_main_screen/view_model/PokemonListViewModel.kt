@@ -46,6 +46,11 @@ class PokemonListViewModel(
             listOfPokemonResult.forEach { result ->
                 result.url?.let { url ->
                     val pokemonDetails = repository.getPokemonDetailsByUrl(url)
+                    pokemonDetails.setPokemonSpecies(
+                        repository.getPokemonSpecies(
+                            pokemonDetails.id ?: 1
+                        )
+                    )
                     pokemonDetailsCollection.add(pokemonDetails)
                 }
             }

@@ -1,6 +1,8 @@
 package com.ango.pokemon.feature.pokemon_main_screen.view
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +11,6 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ango.pokemon.R
 import com.ango.pokemon.core.utils.status_wrapper.Status
@@ -46,7 +47,19 @@ class PokemonListFragment : Fragment() {
             it.visibility = INVISIBLE
             pokemonViewModel.nextPokemonPage()
         }
+        pokemonListBinding.searchInputId.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(searchQuery: Editable) {
+                val query = searchQuery.toString().trim()
+                pokemonListAdapter.searchFor(query)
+            }
+
+        })
     }
+
 
     private fun initPokemonRecyclerView() {
         pokemonRecyclerView = pokemonListBinding.pokemonRvId
@@ -55,9 +68,9 @@ class PokemonListFragment : Fragment() {
         pokemonRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val totalItemCount = linearLayoutManager.itemCount
-                val lastItemVisible = linearLayoutManager.findLastVisibleItemPosition()
+                val grideLayoutManager = recyclerView.layoutManager as GridLayoutManager
+                val totalItemCount = grideLayoutManager.itemCount
+                val lastItemVisible = grideLayoutManager.findLastVisibleItemPosition()
                 if (totalItemCount <= (lastItemVisible + 1) && dy > 0) {
                     loadMoreSnackBar =
                         Snackbar.make(recyclerView, R.string.load_more, Snackbar.LENGTH_LONG)
@@ -71,14 +84,6 @@ class PokemonListFragment : Fragment() {
         })
     }
 
-    private fun buildLoadMoreSnackBar(view: View): Snackbar {
-        val snackBar = Snackbar.make(view, "Load More", Snackbar.LENGTH_LONG)
-        snackBar.setAction("YES") {
-            pokemonViewModel.nextPokemonPage()
-            snackBar.dismiss()
-        }
-        return snackBar
-    }
 
     private fun initObserver() {
         initPokemonObserver()
