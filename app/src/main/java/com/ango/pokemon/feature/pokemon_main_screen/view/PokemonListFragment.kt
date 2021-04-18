@@ -1,15 +1,16 @@
 package com.ango.pokemon.feature.pokemon_main_screen.view
 
 import android.os.Bundle
-import android.util.LayoutDirection
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ango.pokemon.core.utils.status_wrapper.Status
 import com.ango.pokemon.databinding.FragmentPokemonListScreenBinding
@@ -30,6 +31,7 @@ class PokemonListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         pokemonListBinding = FragmentPokemonListScreenBinding.inflate(layoutInflater)
+        initClickListeners()
         return pokemonListBinding.root
     }
 
@@ -39,16 +41,29 @@ class PokemonListFragment : Fragment() {
         initObserver()
     }
 
+    private fun initClickListeners() {
+        pokemonListBinding.loadMoreBtnId.setOnClickListener {
+            it.visibility = INVISIBLE
+            pokemonViewModel.getPokemonDetails()
+        }
+    }
+
     private fun initPokemonRecyclerView() {
         pokemonRecyclerView = pokemonListBinding.pokemonRvId
         pokemonRecyclerView.layoutManager = GridLayoutManager(requireActivity(), 2)
         pokemonListAdapter = PokemonListAdapter(mutableListOf())
         pokemonRecyclerView.adapter = pokemonListAdapter
         pokemonRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (!recyclerView.canScrollVertically(LayoutDirection.LTR)) {
-                    pokemonViewModel.getPokemonDetails()
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val totalItemCount = linearLayoutManager.itemCount
+                val lastItemVisible = linearLayoutManager.findLastVisibleItemPosition()
+                if (totalItemCount <= (lastItemVisible + 1) && dy > 0) {
+                    if (pokemonListBinding.loadMoreBtnId.visibility != VISIBLE) {
+                        pokemonListBinding.loadMoreBtnId.visibility = VISIBLE
+                        Toast.makeText(requireActivity(), "visible", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         })
