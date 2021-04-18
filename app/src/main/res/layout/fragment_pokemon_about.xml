@@ -96,13 +96,13 @@
         <TextView
             android:id="@+id/is_default_tv_id"
             style="@style/about_text_style"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="100dp"
             android:text="@string/is_default"
             android:textColor="@color/gray"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/divider"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/breeding_tv"
             app:layout_constraintTop_toBottomOf="@+id/breeding_tv" />
 
@@ -119,7 +119,7 @@
         <TextView
             android:id="@+id/egg_group_tv_id"
             style="@style/about_text_style"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/egg_groups"
             android:textColor="@color/gray"

@@ -10,7 +10,8 @@ import com.ango.pokemon.feature.pokemon_details_screen.view.pokemon_details_page
 class PokemonDetailsPagesAdapter(hostFragment: FragmentActivity) :
     FragmentStateAdapter(hostFragment) {
 
-    private val pokemonDetailsPages = mapOf<Int, Fragment>(
+    //map of position and fragment instance to map selected page in viewPager
+    private val pokemonDetailsPages = mapOf(
         0 to PokemonAboutFragment(),
         1 to BaseStateFragment(),
     )

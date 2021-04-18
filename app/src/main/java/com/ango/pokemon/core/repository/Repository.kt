@@ -9,4 +9,6 @@ interface Repository {
     suspend fun getPokemon(): Pokemon
     suspend fun getPokemonDetails(id: Long): PokemonDetails
     suspend fun getPokemonSpecies(id: Long): Species
+    suspend fun getPokemonDetailsByUrl(url: String): PokemonDetails
+    suspend fun nextPokemonPage(nextPokemonPageUrl: String): Pokemon
 }

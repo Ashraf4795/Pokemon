@@ -1,6 +1,6 @@
 package com.ango.pokemon.core.utils.status_wrapper
 
-//wrapper class for retried data
+//wrapper class to wrap data and add a state on it
 data class State<out T>(val status: Status, val data: T?, val message: String?) {
     companion object {
         fun <T> success(data: T?): State<T> = State(status = Status.SUCCESS, data = data, message = null)

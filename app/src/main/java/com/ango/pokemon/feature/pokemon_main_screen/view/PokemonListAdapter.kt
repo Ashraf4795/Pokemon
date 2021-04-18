@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat.getColorStateList
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,13 @@ import com.ango.pokemon.databinding.PokemonItemBinding
 class PokemonListAdapter(
     private val adapterPokemonDetailsCollection: MutableList<PokemonDetails>
 ) : RecyclerView.Adapter<PokemonListAdapter.PokemonDetailsViewHolder>() {
+
+    //mutable object to hold search result.
+    private var filteredPokemonDetailsList = mutableListOf<PokemonDetails>()
+
+    //backup for @field adapterPokemonDetailsCollection, so that after filteration on adapter pokemon list
+    //the original values are safe.
+    private val backupPokemonDetailsList = adapterPokemonDetailsCollection.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonDetailsViewHolder {
         return PokemonDetailsViewHolder(
@@ -63,35 +71,54 @@ class PokemonListAdapter(
         return adapterPokemonDetailsCollection.size
     }
 
+    //set pokemon types
+    //@param types: list of pokemon types like [fire, poison etc]
     private fun setTypes(pokemonItemBinding: PokemonItemBinding, types: List<Type>?) {
         if (types?.size == 1) {
-            pokemonItemBinding.pokemonType1.visibility = VISIBLE
-            pokemonItemBinding.pokemonType1.text = types.first().type?.name
+            setPokemonType(pokemonItemBinding.pokemonType1, types.first().type?.name ?: "")
         } else if (types?.size == 2) {
-
-            pokemonItemBinding.pokemonType1.visibility = VISIBLE
-            pokemonItemBinding.pokemonType1.text = types.first().type?.name
-
-            pokemonItemBinding.pokemonType2.visibility = VISIBLE
-            pokemonItemBinding.pokemonType2.text = types[1].type?.name
-
+            setPokemonType(pokemonItemBinding.pokemonType1, types.first().type?.name ?: "")
+            setPokemonType(pokemonItemBinding.pokemonType2, types[1].type?.name ?: "")
         } else if (types?.size == 3) {
-
-            pokemonItemBinding.pokemonType1.visibility = VISIBLE
-            pokemonItemBinding.pokemonType1.text = types.first().type?.name
-
-
-            pokemonItemBinding.pokemonType2.visibility = VISIBLE
-            pokemonItemBinding.pokemonType2.text = types[1].type?.name
-
-
-            pokemonItemBinding.pokemonType3.visibility = VISIBLE
-            pokemonItemBinding.pokemonType3.text = types[2].type?.name
+            setPokemonType(pokemonItemBinding.pokemonType1, types.first().type?.name ?: "")
+            setPokemonType(pokemonItemBinding.pokemonType2, types[1].type?.name ?: "")
+            setPokemonType(pokemonItemBinding.pokemonType3, types[2].type?.name ?: "")
         }
     }
 
+    private fun setPokemonType(pokemonTypeTextView: TextView, pokemonTypeValue: String) {
+        pokemonTypeTextView.text = pokemonTypeValue
+        pokemonTypeTextView.visibility = VISIBLE
+    }
+
+    //set new list of pokemon details to adapter list
     fun setPokemonDetailsList(pokemonDetailsList: MutableList<PokemonDetails>) {
+        val lastPosition = adapterPokemonDetailsCollection.size
         adapterPokemonDetailsCollection += pokemonDetailsList
+        backupPokemonDetailsList += pokemonDetailsList
+
+        //notify range of item change to avoid changing the all list
+        //@field lastPosition is to get the last item in the current list as a starting index for change notification
+        //@param adapterPokemonDetailsCollection.size is the updated size (current + new)
+        // list as a last index for change notification
+        notifyItemRangeChanged(lastPosition, adapterPokemonDetailsCollection.size)
+    }
+
+    //function to search for a pokemon with name containing @param query
+    fun searchFor(query: String) {
+        //first clear the previous list items from any previous filtration
+        adapterPokemonDetailsCollection.clear()
+
+        //add the backup list to get the original list of pokemons to filter from
+        adapterPokemonDetailsCollection.addAll(backupPokemonDetailsList)
+
+        //filter based on name
+        filteredPokemonDetailsList =
+            adapterPokemonDetailsCollection.filter { it.name?.contains(query) ?: false }
+                .toMutableList()
+        //before adding filtered items, clear all the items to add only filtered items to render it on screen
+        adapterPokemonDetailsCollection.clear()
+        adapterPokemonDetailsCollection.addAll(filteredPokemonDetailsList)
         notifyDataSetChanged()
     }
 

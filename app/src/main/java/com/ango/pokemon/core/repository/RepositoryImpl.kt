@@ -7,8 +7,9 @@ import com.ango.pokemon.core.data.source.local.LocalDataSourceContract
 import com.ango.pokemon.core.data.source.remote.RemoteDataSourceContract
 
 class RepositoryImpl(
-        val localDataSource: LocalDataSourceContract,
-        val remoteDataSource: RemoteDataSourceContract) : Repository {
+    val localDataSource: LocalDataSourceContract,
+    private val remoteDataSource: RemoteDataSourceContract
+) : Repository {
     override suspend fun getPokemon(): Pokemon {
         return remoteDataSource.getPokemon()
     }
@@ -21,4 +22,11 @@ class RepositoryImpl(
         return remoteDataSource.getPokemonSpecies(id)
     }
 
+    override suspend fun getPokemonDetailsByUrl(url: String): PokemonDetails {
+        return remoteDataSource.getPokemonDetailsByUrl(url)
+    }
+
+    override suspend fun nextPokemonPage(nextPokemonPageUrl: String): Pokemon {
+        return remoteDataSource.nextPokemonPage(nextPokemonPageUrl)
+    }
 }
