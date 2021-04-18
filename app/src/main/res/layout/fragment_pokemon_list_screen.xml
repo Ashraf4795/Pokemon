@@ -95,8 +95,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:text="@string/load_more"
-            android:textColor="@color/white"
-            android:visibility="invisible"
+            android:backgroundTint="@color/white"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/pokemon_rv_id"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
