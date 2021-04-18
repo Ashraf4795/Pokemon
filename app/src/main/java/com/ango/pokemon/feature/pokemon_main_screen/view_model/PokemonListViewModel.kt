@@ -11,6 +11,7 @@ import com.ango.pokemon.core.repository.Repository
 import com.ango.pokemon.core.utils.status_wrapper.State
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class PokemonListViewModel(
@@ -19,6 +20,8 @@ class PokemonListViewModel(
 ) : ViewModel() {
 
     private val TAG = "PokemonListViewModel"
+    private lateinit var pokemonJob: Job
+    private lateinit var pokemonDetailsJob: Job
 
     private val _pokemonDetails = SingleLiveEvent<State<MutableList<PokemonDetails>>>()
     val pokemonDetails: LiveData<State<MutableList<PokemonDetails>>> = _pokemonDetails
@@ -32,7 +35,7 @@ class PokemonListViewModel(
     }
 
     private fun getPokemon() {
-        viewModelScope.launch(IO) {
+        pokemonJob = viewModelScope.launch(IO) {
             _pokemon.postValue(State.loading())
             val pokemon = repository.getPokemon()
             _pokemon.postValue(State.success(pokemon))
@@ -42,7 +45,7 @@ class PokemonListViewModel(
     //@param listOfPokemonResult is a list of object consist of pokemon name and url
     // url is to get pokemon details
     fun getPokemonDetails(listOfPokemonResult: List<Result>) {
-        viewModelScope.launch(IO) {
+        pokemonDetailsJob = viewModelScope.launch(IO) {
             _pokemonDetails.postValue(State.loading())
             val pokemonDetailsCollection = mutableListOf<PokemonDetails>()
 
@@ -68,6 +71,16 @@ class PokemonListViewModel(
             val pokemon =
                 nextPokemonPageUrl?.let { nextPage -> repository.nextPokemonPage(nextPage) }
             _pokemon.postValue(State.success(pokemon))
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        if (pokemonDetailsJob.isActive) {
+            pokemonDetailsJob.cancel()
+        }
+        if (pokemonJob.isActive) {
+            pokemonJob.cancel()
         }
     }
 }

@@ -12,6 +12,14 @@ const val BASE_POKEMON_URL = "https://pokeapi.co/api/v2/"
 */
 const val POKEMON_DETAILS_NUM_PAGES = 2
 
+/*
+* pokemon details pages names
+* */
+val pagesNames = mapOf(
+    0 to R.string.about,
+    1 to R.string.base_state
+)
+
 //for pokemon species with color=null, use this default value
 const val DEFAULT_COLOR = "green"
 

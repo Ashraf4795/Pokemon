@@ -1,279 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".feature.pokemon_details_screen.view.pokemon_details_pages.BaseStateFragment">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/total_tv_id"
-        style="@style/state_number_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/total"
-        app:layout_constraintEnd_toStartOf="@+id/divider2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/speed_tv_id"
-        app:layout_constraintTop_toBottomOf="@+id/speed_tv_id" />
-
-    <TextView
-        android:id="@+id/total_number_id"
-        style="@style/state_number_text_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/total_tv_id"
-        app:layout_constraintStart_toStartOf="@+id/speed_number_id"
-        app:layout_constraintTop_toTopOf="@+id/total_tv_id"
-        tools:text="47" />
-
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/total_progress_id"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:indeterminate="false"
-        app:layout_constraintBottom_toBottomOf="@+id/total_number_id"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/total_number_id"
-        app:layout_constraintTop_toTopOf="@+id/total_number_id"
-        app:trackColor="@color/gray" />
-
-    <TextView
-        android:id="@+id/speed_number_id"
-        style="@style/state_number_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/speed_tv_id"
-        app:layout_constraintStart_toStartOf="@+id/sp_defense_number_id"
-        app:layout_constraintTop_toTopOf="@+id/speed_tv_id"
-        tools:text="78" />
-
-    <TextView
-        android:id="@+id/speed_tv_id"
-        style="@style/state_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/speed"
-        app:layout_constraintEnd_toStartOf="@+id/divider2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/sp_defense_tv_id"
-        app:layout_constraintTop_toBottomOf="@+id/sp_defense_tv_id" />
-
-    <TextView
-        android:id="@+id/sp_defense_tv_id"
-        style="@style/state_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/sp.def"
-        app:layout_constraintEnd_toStartOf="@+id/divider2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/sp_attack_tv_id"
-        app:layout_constraintTop_toBottomOf="@+id/sp_attack_tv_id" />
-
-    <TextView
-        android:id="@+id/sp_defense_number_id"
-        style="@style/state_number_text_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/sp_defense_tv_id"
-        app:layout_constraintStart_toStartOf="@+id/sp_attack_number_id"
-        app:layout_constraintTop_toTopOf="@+id/sp_defense_tv_id"
-        tools:text="97" />
-
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/sp_defense_progress_id"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:indeterminate="false"
-        app:layout_constraintBottom_toBottomOf="@+id/sp_defense_number_id"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/sp_defense_number_id"
-        app:layout_constraintTop_toTopOf="@+id/sp_defense_number_id"
-        app:trackColor="@color/gray" />
-
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/speed_progress_id"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:indeterminate="false"
-        app:layout_constraintBottom_toBottomOf="@+id/speed_number_id"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/speed_number_id"
-        app:layout_constraintTop_toTopOf="@+id/speed_number_id"
-        app:trackColor="@color/gray" />
-
-    <TextView
-        android:id="@+id/sp_attack_number_id"
-        style="@style/state_number_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/sp_attack_tv_id"
-        app:layout_constraintStart_toStartOf="@+id/defense_number_id"
-        app:layout_constraintTop_toTopOf="@+id/sp_attack_tv_id"
-        tools:text="37" />
-
-    <TextView
-        android:id="@+id/sp_attack_tv_id"
-        style="@style/state_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/sp.attack"
-        app:layout_constraintEnd_toStartOf="@+id/divider2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/defense_tv_id"
-        app:layout_constraintTop_toBottomOf="@+id/defense_tv_id" />
-
-    <TextView
-        android:id="@+id/defense_tv_id"
-        style="@style/state_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/defense"
-        app:layout_constraintEnd_toStartOf="@+id/divider2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/attack_tv_id"
-        app:layout_constraintTop_toBottomOf="@+id/attack_tv_id" />
-
-    <TextView
-        android:id="@+id/defense_number_id"
-        style="@style/state_number_text_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/defense_tv_id"
-        app:layout_constraintStart_toStartOf="@+id/attack_number_id"
-        app:layout_constraintTop_toTopOf="@+id/defense_tv_id"
-        tools:text="74" />
-
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/defense_progress_id"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:indeterminate="false"
-        app:layout_constraintBottom_toBottomOf="@+id/defense_number_id"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/defense_number_id"
-        app:layout_constraintTop_toTopOf="@+id/defense_number_id"
-        app:trackColor="@color/gray" />
-
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/sp_attack_progress_id"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:indeterminate="false"
-        app:layout_constraintBottom_toBottomOf="@+id/sp_attack_number_id"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/sp_attack_number_id"
-        app:layout_constraintTop_toTopOf="@+id/sp_attack_number_id"
-        app:trackColor="@color/gray" />
-
-    <TextView
-        android:id="@+id/hp_tv_id"
-        style="@style/state_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="48dp"
-        android:text="@string/hp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/hp_number_id"
-        style="@style/state_number_text_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/hp_tv_id"
-        app:layout_constraintStart_toEndOf="@+id/divider2"
-        app:layout_constraintTop_toTopOf="@+id/hp_tv_id"
-        tools:text="45" />
-
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/hp_progress_id"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:indeterminate="false"
-        app:layout_constraintBottom_toBottomOf="@+id/hp_number_id"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/hp_number_id"
-        app:layout_constraintTop_toTopOf="@+id/hp_number_id"
-        app:trackColor="@color/gray" />
-
-    <TextView
-        android:id="@+id/attack_tv_id"
-        style="@style/state_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/attack"
-        app:layout_constraintEnd_toStartOf="@+id/divider2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/hp_tv_id"
-        app:layout_constraintTop_toBottomOf="@+id/hp_tv_id" />
-
-    <TextView
-        android:id="@+id/attack_number_id"
-        style="@style/state_number_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/attack_tv_id"
-        app:layout_constraintStart_toStartOf="@+id/hp_number_id"
-        app:layout_constraintTop_toTopOf="@+id/attack_tv_id"
-        tools:text="800" />
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="1dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="100dp"
-        android:background="?android:attr/listDivider"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.416"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/state_tv_id" />
+        tools:context=".feature.pokemon_details_screen.view.pokemon_details_pages.BaseStateFragment">
 
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/attack_progress_id"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:indeterminate="false"
-        app:layout_constraintBottom_toBottomOf="@+id/attack_number_id"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/attack_number_id"
-        app:layout_constraintTop_toTopOf="@+id/attack_number_id"
-        app:trackColor="@color/gray" />
+        <TextView
+            android:id="@+id/total_tv_id"
+            style="@style/state_number_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/total"
+            app:layout_constraintEnd_toStartOf="@+id/divider2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/speed_tv_id"
+            app:layout_constraintTop_toBottomOf="@+id/speed_tv_id" />
 
-    <TextView
-        android:id="@+id/state_tv_id"
-        style="@style/headline_text_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/base_state"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/total_number_id"
+            style="@style/state_number_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/total_tv_id"
+            app:layout_constraintStart_toStartOf="@+id/speed_number_id"
+            app:layout_constraintTop_toTopOf="@+id/total_tv_id"
+            tools:text="47" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/total_progress_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:indeterminate="false"
+            app:layout_constraintBottom_toBottomOf="@+id/total_number_id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/total_number_id"
+            app:layout_constraintTop_toTopOf="@+id/total_number_id"
+            app:trackColor="@color/gray" />
+
+        <TextView
+            android:id="@+id/speed_number_id"
+            style="@style/state_number_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/speed_tv_id"
+            app:layout_constraintStart_toStartOf="@+id/sp_defense_number_id"
+            app:layout_constraintTop_toTopOf="@+id/speed_tv_id"
+            tools:text="78" />
+
+        <TextView
+            android:id="@+id/speed_tv_id"
+            style="@style/state_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/speed"
+            app:layout_constraintEnd_toStartOf="@+id/divider2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/sp_defense_tv_id"
+            app:layout_constraintTop_toBottomOf="@+id/sp_defense_tv_id" />
+
+        <TextView
+            android:id="@+id/sp_defense_tv_id"
+            style="@style/state_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/sp.def"
+            app:layout_constraintEnd_toStartOf="@+id/divider2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/sp_attack_tv_id"
+            app:layout_constraintTop_toBottomOf="@+id/sp_attack_tv_id" />
+
+        <TextView
+            android:id="@+id/sp_defense_number_id"
+            style="@style/state_number_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/sp_defense_tv_id"
+            app:layout_constraintStart_toStartOf="@+id/sp_attack_number_id"
+            app:layout_constraintTop_toTopOf="@+id/sp_defense_tv_id"
+            tools:text="97" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/sp_defense_progress_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:indeterminate="false"
+            app:layout_constraintBottom_toBottomOf="@+id/sp_defense_number_id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sp_defense_number_id"
+            app:layout_constraintTop_toTopOf="@+id/sp_defense_number_id"
+            app:trackColor="@color/gray" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/speed_progress_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:indeterminate="false"
+            app:layout_constraintBottom_toBottomOf="@+id/speed_number_id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/speed_number_id"
+            app:layout_constraintTop_toTopOf="@+id/speed_number_id"
+            app:trackColor="@color/gray" />
+
+        <TextView
+            android:id="@+id/sp_attack_number_id"
+            style="@style/state_number_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/sp_attack_tv_id"
+            app:layout_constraintStart_toStartOf="@+id/defense_number_id"
+            app:layout_constraintTop_toTopOf="@+id/sp_attack_tv_id"
+            tools:text="37" />
+
+        <TextView
+            android:id="@+id/sp_attack_tv_id"
+            style="@style/state_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/sp.attack"
+            app:layout_constraintEnd_toStartOf="@+id/divider2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/defense_tv_id"
+            app:layout_constraintTop_toBottomOf="@+id/defense_tv_id" />
+
+        <TextView
+            android:id="@+id/defense_tv_id"
+            style="@style/state_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/defense"
+            app:layout_constraintEnd_toStartOf="@+id/divider2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/attack_tv_id"
+            app:layout_constraintTop_toBottomOf="@+id/attack_tv_id" />
+
+        <TextView
+            android:id="@+id/defense_number_id"
+            style="@style/state_number_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/defense_tv_id"
+            app:layout_constraintStart_toStartOf="@+id/attack_number_id"
+            app:layout_constraintTop_toTopOf="@+id/defense_tv_id"
+            tools:text="74" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/defense_progress_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:indeterminate="false"
+            app:layout_constraintBottom_toBottomOf="@+id/defense_number_id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/defense_number_id"
+            app:layout_constraintTop_toTopOf="@+id/defense_number_id"
+            app:trackColor="@color/gray" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/sp_attack_progress_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:indeterminate="false"
+            app:layout_constraintBottom_toBottomOf="@+id/sp_attack_number_id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sp_attack_number_id"
+            app:layout_constraintTop_toTopOf="@+id/sp_attack_number_id"
+            app:trackColor="@color/gray" />
+
+        <TextView
+            android:id="@+id/hp_tv_id"
+            style="@style/state_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="48dp"
+            android:text="@string/hp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/hp_number_id"
+            style="@style/state_number_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/hp_tv_id"
+            app:layout_constraintStart_toEndOf="@+id/divider2"
+            app:layout_constraintTop_toTopOf="@+id/hp_tv_id"
+            tools:text="45" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/hp_progress_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:indeterminate="false"
+            app:layout_constraintBottom_toBottomOf="@+id/hp_number_id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/hp_number_id"
+            app:layout_constraintTop_toTopOf="@+id/hp_number_id"
+            app:trackColor="@color/gray" />
+
+        <TextView
+            android:id="@+id/attack_tv_id"
+            style="@style/state_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/attack"
+            app:layout_constraintEnd_toStartOf="@+id/divider2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/hp_tv_id"
+            app:layout_constraintTop_toBottomOf="@+id/hp_tv_id" />
+
+        <TextView
+            android:id="@+id/attack_number_id"
+            style="@style/state_number_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/attack_tv_id"
+            app:layout_constraintStart_toStartOf="@+id/hp_number_id"
+            app:layout_constraintTop_toTopOf="@+id/attack_tv_id"
+            tools:text="800" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="100dp"
+            android:background="?android:attr/listDivider"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.416"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/attack_progress_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:indeterminate="false"
+            app:layout_constraintBottom_toBottomOf="@+id/attack_number_id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/attack_number_id"
+            app:layout_constraintTop_toTopOf="@+id/attack_number_id"
+            app:trackColor="@color/gray" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

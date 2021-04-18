@@ -42,5 +42,8 @@
     <string name="load_more">Load More</string>
 
     <string name="load_more_action_text">YES</string>
+    <string name="weight_unit">lbs</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>
