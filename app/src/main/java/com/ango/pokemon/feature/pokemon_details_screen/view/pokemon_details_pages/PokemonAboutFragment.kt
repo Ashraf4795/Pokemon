@@ -12,9 +12,6 @@ import com.ango.pokemon.databinding.FragmentPokemonAboutBinding
 import com.ango.pokemon.feature.pokemon_details_screen.view_model.PokemonDetailsViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
-private const val POKEMON_DETAILS = "pokemon_details_PokemonAboutFragment"
-
-
 class PokemonAboutFragment : Fragment() {
     val TAG = "About_fragment"
     private val pokemonDetailsViewModel: PokemonDetailsViewModel by viewModel()

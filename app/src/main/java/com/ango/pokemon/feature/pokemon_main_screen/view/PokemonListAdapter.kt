@@ -4,8 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.getColorStateList
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.ango.pokemon.core.app.DEFAULT_COLOR
+import com.ango.pokemon.core.app.pokemonColors
 import com.ango.pokemon.core.data.model.PokemonDetails
 import com.ango.pokemon.core.data.model.Type
 import com.ango.pokemon.core.extenstion.loadImage
@@ -28,10 +31,18 @@ class PokemonListAdapter(
     override fun onBindViewHolder(holder: PokemonDetailsViewHolder, position: Int) {
         val pokemonAtPosition = adapterPokemonDetailsCollection[position]
 
+        val speciesColor = pokemonAtPosition.species?.color?.name
+
         with(holder.pokemonDetailsBinding) {
             pokemonCardId.setOnClickListener { view ->
                 navigateToDetailScreen(view, pokemonAtPosition)
             }
+
+            pokemonCardId.backgroundTintList = getColorStateList(
+                holder.pokemonDetailsBinding.root.context,
+                pokemonColors.getValue(speciesColor ?: DEFAULT_COLOR).first
+            )
+
             imageView.loadImage(
                 pokemonAtPosition.sprites?.other?.officialArtwork?.frontDefault ?: "", 50
             )

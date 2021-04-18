@@ -11,7 +11,7 @@ const val ALL_POKEMON_LOADED = "All pokemon loaded!"
 const val DEFAULT_IMAGE_URL =
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png"
 
-const val POKEMON_DETAILS_NUM_PAGES = 3
+const val POKEMON_DETAILS_NUM_PAGES = 2
 
 const val DEFAULT_COLOR = "green"
 val pokemonColors = mapOf<String, Pair<Int, Int>>(
