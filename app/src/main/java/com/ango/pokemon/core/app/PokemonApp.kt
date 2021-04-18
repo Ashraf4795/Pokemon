@@ -8,10 +8,10 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class PokemonApp : Application() {
-    val TAG: String = "Pokemon App tag"
 
     override fun onCreate() {
         super.onCreate()
+        //start koin service locator with dependencies modules
         startKoin {
             androidContext(this@PokemonApp)
             modules(

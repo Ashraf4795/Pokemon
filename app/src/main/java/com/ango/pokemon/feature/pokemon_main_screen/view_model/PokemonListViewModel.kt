@@ -1,6 +1,5 @@
 package com.ango.pokemon.feature.pokemon_main_screen.view_model
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,11 +14,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PokemonListViewModel(
-    val repository: Repository,
+    private val repository: Repository,
     val IO: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
-    val TAG = "PokemonListViewModel"
+    private val TAG = "PokemonListViewModel"
+
     private val _pokemonDetails = SingleLiveEvent<State<MutableList<PokemonDetails>>>()
     val pokemonDetails: LiveData<State<MutableList<PokemonDetails>>> = _pokemonDetails
 
@@ -31,7 +31,7 @@ class PokemonListViewModel(
         getPokemon()
     }
 
-    fun getPokemon() {
+    private fun getPokemon() {
         viewModelScope.launch(IO) {
             _pokemon.postValue(State.loading())
             val pokemon = repository.getPokemon()
@@ -39,26 +39,28 @@ class PokemonListViewModel(
         }
     }
 
+    //@param listOfPokemonResult is a list of object consist of pokemon name and url
+    // url is to get pokemon details
     fun getPokemonDetails(listOfPokemonResult: List<Result>) {
         viewModelScope.launch(IO) {
             _pokemonDetails.postValue(State.loading())
             val pokemonDetailsCollection = mutableListOf<PokemonDetails>()
+
+            //loop through the list to retrieve pokemonDetails and species object for each pokemon
             listOfPokemonResult.forEach { result ->
                 result.url?.let { url ->
                     val pokemonDetails = repository.getPokemonDetailsByUrl(url)
                     pokemonDetails.setPokemonSpecies(
-                        repository.getPokemonSpecies(
-                            pokemonDetails.id ?: 1
-                        )
+                        repository.getPokemonSpecies(pokemonDetails.id ?: 1)
                     )
                     pokemonDetailsCollection.add(pokemonDetails)
                 }
             }
             _pokemonDetails.postValue(State.success(pokemonDetailsCollection))
-            Log.d(TAG, "Combined list")
         }
     }
 
+    //get the next page of pokemons with pokemon.next url
     fun nextPokemonPage() {
         viewModelScope.launch(IO) {
             val nextPokemonPageUrl = _pokemon.value?.data?.next

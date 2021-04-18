@@ -28,7 +28,7 @@ class PokemonDetailsFragment : Fragment() {
     val TAG = "PokemonDetailsFragment"
 
     private lateinit var pokemonDetailsBinding: FragmentPokemonDetailsBinding
-    private val pokemonDetailsviewModel: PokemonDetailsViewModel by viewModel()
+    private val pokemonDetailsViewModel: PokemonDetailsViewModel by viewModel()
 
     private val pokemonDetailsArg: PokemonDetailsFragmentArgs by navArgs()
 
@@ -38,27 +38,21 @@ class PokemonDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pagerAdapter = PokemonDetailsPagesAdapter(requireActivity())
-        pokemonDetailsBinding.pokemonDetailsVpId.adapter = pagerAdapter
+        val pokemonDetailsPagerAdapter = PokemonDetailsPagesAdapter(requireActivity())
+        pokemonDetailsBinding.pokemonDetailsVpId.adapter = pokemonDetailsPagerAdapter
         initPokemonViewModelObserver()
     }
 
     private fun initPokemonViewModelObserver() {
-        pokemonDetailsviewModel.getPokemonDetails(pokemonDetailsArg.pokemonDetailsId)
+        pokemonDetailsViewModel.getPokemonDetails(pokemonDetailsArg.pokemonDetailsId)
             .observe(viewLifecycleOwner) { state ->
                 when (state.status) {
                     Status.LOADING -> {
-                        //binding.pokemonLoaderId.visibility = View.VISIBLE
                         Log.d(TAG, "loading")
                     }
                     Status.SUCCESS -> {
-                        //binding.pokemonLoaderId.visibility = View.INVISIBLE
                         state.data?.let { pokemonDetails ->
-                            updateUI(pokemonDetails)
-                            Log.d(
-                                TAG,
-                                "id: ${pokemonDetailsArg.pokemonDetailsId} data:$pokemonDetails"
-                            )
+                            updatePokemonDetailsUI(pokemonDetails)
                         }
                     }
                 else -> {
@@ -84,26 +78,25 @@ class PokemonDetailsFragment : Fragment() {
     }
 
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PokemonDetailsFragment()
-    }
-
-    private fun updateUI(pokemonDetails: PokemonDetails) {
+    private fun updatePokemonDetailsUI(pokemonDetails: PokemonDetails) {
         val speciesColor = pokemonDetails.species?.color?.name ?: DEFAULT_COLOR
         val isWhite = (speciesColor == "white")
+        //change text views color to black if the pokemon species color is white
+        //@field speciesColor is used to set background color value
         if (isWhite) {
             changeUIColorToBlack()
         }
 
+        //update details page UI values
         with(pokemonDetailsBinding) {
             pokemonDetailsRootId.setBackgroundResource(pokemonColors.getValue(speciesColor).first)
             pokemonNameId.text = pokemonDetails.name
             pokemonIdNumberId.text = "#" + pokemonDetails.id.toString()
+
             pokemonDetails.getSpritesOfficialArtWork()?.let { url ->
                 pokemonImgId.loadImage(url, 1)
             }
+
             pokemonDetails.types?.map { it.type?.name }?.forEach { typeName ->
                 val typeChip = Chip(requireContext())
                 typeChip.text = typeName
@@ -117,6 +110,7 @@ class PokemonDetailsFragment : Fragment() {
         }
     }
 
+    //change Text views in details page to black
     private fun changeUIColorToBlack() {
         val resourceColor = R.color.black
         with(pokemonDetailsBinding) {

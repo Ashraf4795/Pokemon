@@ -5,19 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.ango.pokemon.core.app.pokemonColors
+import com.ango.pokemon.core.app.*
 import com.ango.pokemon.core.data.model.PokemonDetails
 import com.ango.pokemon.core.utils.status_wrapper.Status
 import com.ango.pokemon.databinding.FragmentBaseStateBinding
 import com.ango.pokemon.feature.pokemon_details_screen.view_model.PokemonDetailsViewModel
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import org.koin.android.viewmodel.ext.android.viewModel
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 
 class BaseStateFragment : Fragment() {
@@ -25,6 +22,7 @@ class BaseStateFragment : Fragment() {
     private val TAG = "BaseStateFragment"
     private val pokemonDetailsViewModel: PokemonDetailsViewModel by viewModel()
     private lateinit var baseStateBinding: FragmentBaseStateBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -42,13 +40,11 @@ class BaseStateFragment : Fragment() {
         pokemonDetailsViewModel.pokemonDetails.observe(viewLifecycleOwner) { state ->
             when (state.status) {
                 Status.LOADING -> {
-                    //binding.pokemonLoaderId.visibility = View.VISIBLE
                     Log.d(TAG, "loading")
                 }
                 Status.SUCCESS -> {
-                    //binding.pokemonLoaderId.visibility = View.INVISIBLE
                     state.data?.let { pokemonDetails ->
-                        updateUI(pokemonDetails)
+                        updateBaseStatUI(pokemonDetails)
                     }
                 }
                 else -> {
@@ -59,80 +55,72 @@ class BaseStateFragment : Fragment() {
 
     }
 
-    private fun updateUI(pokemonDetails: PokemonDetails) {
+    private fun updateBaseStatUI(pokemonDetails: PokemonDetails) {
+        //total power of pokemon state
         var totalBaseStat: Long = 0
-        with(baseStateBinding) {
-            pokemonDetails.stats?.forEach { statItem ->
-                when (statItem.stat?.name) {
-                    "hp" -> {
-                        hpNumberId.text = statItem.baseStat.toString()
-                        hpProgressId.setIndicatorColor(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                getProgressColor(statItem.baseStat ?: 0).first
-                            )
-                        )
-                        hpProgressId.progress = statItem.baseStat?.toInt() ?: 0
-                        totalBaseStat += statItem.baseStat ?: 0
-                    }
-                    "attack" -> {
-                        attackNumberId.text = statItem.baseStat.toString()
-                        attackProgressId.setIndicatorColor(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                getProgressColor(statItem.baseStat ?: 0).first
-                            )
-                        )
-                        attackProgressId.progress = statItem.baseStat?.toInt() ?: 0
-                        totalBaseStat += statItem.baseStat ?: 0
-                    }
-                    "defense" -> {
-                        defenseNumberId.text = statItem.baseStat.toString()
-                        defenseProgressId.setIndicatorColor(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                getProgressColor(statItem.baseStat ?: 0).first
-                            )
-                        )
-                        defenseProgressId.progress = statItem.baseStat?.toInt() ?: 0
-                        totalBaseStat += statItem.baseStat ?: 0
-                    }
-                    "special-attack" -> {
-                        spAttackNumberId.text = statItem.baseStat.toString()
-                        spAttackProgressId.setIndicatorColor(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                getProgressColor(statItem.baseStat ?: 0).first
-                            )
-                        )
-                        spAttackProgressId.progress = statItem.baseStat?.toInt() ?: 0
-                        totalBaseStat += statItem.baseStat ?: 0
-                    }
-                    "special-defense" -> {
-                        spDefenseNumberId.text = statItem.baseStat.toString()
-                        spDefenseProgressId.setIndicatorColor(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                getProgressColor(statItem.baseStat ?: 0).first
-                            )
-                        )
-                        spDefenseProgressId.progress = statItem.baseStat?.toInt() ?: 0
-                        totalBaseStat += statItem.baseStat ?: 0
-                    }
-                    "speed" -> {
-                        speedNumberId.text = statItem.baseStat.toString()
-                        speedProgressId.setIndicatorColor(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                getProgressColor(statItem.baseStat ?: 0).first
-                            )
-                        )
-                        speedProgressId.progress = statItem.baseStat?.toInt() ?: 0
-                        totalBaseStat += statItem.baseStat ?: 0
-                    }
+
+        pokemonDetails.stats?.forEach { statItem ->
+            when (statItem.stat?.name) {
+                HP -> {
+                    updateStateView(
+                        baseStateBinding.hpNumberId,
+                        baseStateBinding.hpProgressId,
+                        statItem.baseStat ?: 0L
+                    )
+                    totalBaseStat += statItem.baseStat ?: 0
+                }
+                ATTACK -> {
+                    updateStateView(
+                        baseStateBinding.attackNumberId,
+                        baseStateBinding.attackProgressId,
+                        statItem.baseStat ?: 0L
+                    )
+                    totalBaseStat += statItem.baseStat ?: 0
+                }
+                DEFENSE -> {
+                    updateStateView(
+                        baseStateBinding.defenseNumberId,
+                        baseStateBinding.defenseProgressId,
+                        statItem.baseStat ?: 0L
+                    )
+                    totalBaseStat += statItem.baseStat ?: 0
+                }
+                SPECIAL_ATTACK -> {
+                    updateStateView(
+                        baseStateBinding.spAttackNumberId,
+                        baseStateBinding.spAttackProgressId,
+                        statItem.baseStat ?: 0L
+                    )
+                    totalBaseStat += statItem.baseStat ?: 0
+                }
+                SPECIAL_DEFENSE -> {
+                    updateStateView(
+                        baseStateBinding.spDefenseNumberId,
+                        baseStateBinding.spDefenseProgressId,
+                        statItem.baseStat ?: 0L
+                    )
+                    totalBaseStat += statItem.baseStat ?: 0
+                }
+                SPEED -> {
+                    updateStateView(
+                        baseStateBinding.speedNumberId,
+                        baseStateBinding.speedProgressId,
+                        statItem.baseStat ?: 0L
+                    )
+                    totalBaseStat += statItem.baseStat ?: 0
                 }
             }
-            val totalProgress = ((totalBaseStat / 600f) * 100).toLong()
+        }
+        //Calculate the total state power percentage to update total progress bar
+        updateTotalState(baseStateBinding, totalBaseStat)
+    }
+
+    //update total pokemon state value and progress percentage value
+    private fun updateTotalState(baseStateBinding: FragmentBaseStateBinding, totalBaseStat: Long) {
+        with(baseStateBinding) {
+            //total power divided by (number of stat * 100 as a full power)
+            // multiply by 100 to calc percentage
+            val totalProgress = ((totalBaseStat / TOTAL_STATE_FULL_POWER) * 100).toLong()
             totalNumberId.text = totalBaseStat.toString()
             totalProgressId.setIndicatorColor(
                 ContextCompat.getColor(
@@ -144,6 +132,24 @@ class BaseStateFragment : Fragment() {
         }
     }
 
+    //update pokemon stat with base stat number and progress value
+    private fun updateStateView(
+        stateNumber: TextView,
+        stateProgress: LinearProgressIndicator,
+        baseStat: Long
+    ) {
+        stateNumber.text = baseStat.toString()
+        stateProgress.setIndicatorColor(
+            ContextCompat.getColor(
+                requireContext(),
+                getProgressColor(baseStat ?: 0).first
+            )
+        )
+        stateProgress.progress = baseStat?.toInt() ?: 0
+    }
+
+    //helper function to deterimne progress color
+    //if base state < 50 color will be red || else color will be green
     private fun getProgressColor(baseStat: Long): Pair<Int, Int> {
         if (baseStat < 50) return pokemonColors.getValue("red")
         else return pokemonColors.getValue("green")

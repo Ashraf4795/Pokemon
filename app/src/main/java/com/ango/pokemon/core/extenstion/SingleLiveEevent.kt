@@ -7,19 +7,27 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
+/*
+    SingleLiveEvent class used for emitting one time
+    event to one observe at a time, and each update correspond to an emit
+*/
 class SingleLiveEvent<T> : MutableLiveData<T>() {
-    private val mPending = AtomicBoolean(false)
+
+    private val notEmitted = AtomicBoolean(false)
 
     @MainThread
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
+        //check if there are more than one observer
         if (hasActiveObservers()) {
-            Log.w(TAG, "Multiple observers registered but only one will be notified of changes.")
+            Log.w(TAG, "only one observer will be notified of changes.")
         }
+
         // Observe the internal MutableLiveData
         super.observe(owner, object : Observer<T> {
-            override fun onChanged(t: T?) {
-                if (mPending.compareAndSet(true, false)) {
-                    observer.onChanged(t)
+            override fun onChanged(value: T?) {
+                //if value not emitted, emit value and update the flag to stop update observers
+                if (notEmitted.compareAndSet(true, false)) {
+                    observer.onChanged(value)
                 }
             }
         })
@@ -27,17 +35,10 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     @MainThread
     override fun setValue(t: T?) {
-        mPending.set(true)
+        notEmitted.set(true)
         super.setValue(t)
     }
 
-    /**
-     * Used for cases where T is Void, to make calls cleaner.
-     */
-    @MainThread
-    fun call() {
-        setValue(null)
-    }
 
     companion object {
         private val TAG = "SingleLiveEvent"

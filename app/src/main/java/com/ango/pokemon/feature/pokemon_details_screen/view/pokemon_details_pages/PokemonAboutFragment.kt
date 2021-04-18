@@ -34,13 +34,11 @@ class PokemonAboutFragment : Fragment() {
         pokemonDetailsViewModel.pokemonDetails.observe(viewLifecycleOwner) { state ->
             when (state.status) {
                 Status.LOADING -> {
-                    //binding.pokemonLoaderId.visibility = View.VISIBLE
                     Log.d(TAG, "loading")
                 }
                 Status.SUCCESS -> {
-                    //binding.pokemonLoaderId.visibility = View.INVISIBLE
                     state.data?.let { pokemonDetails ->
-                        updateUI(pokemonDetails)
+                        updatePokemonAboutUI(pokemonDetails)
                     }
                 }
                 else -> {
@@ -51,7 +49,7 @@ class PokemonAboutFragment : Fragment() {
 
     }
 
-    private fun updateUI(pokemonDetails: PokemonDetails) {
+    private fun updatePokemonAboutUI(pokemonDetails: PokemonDetails) {
         with(aboutBinding) {
             weightValueId.text = pokemonDetails.weight.toString()
             heightValueId.text = pokemonDetails.height.toString()

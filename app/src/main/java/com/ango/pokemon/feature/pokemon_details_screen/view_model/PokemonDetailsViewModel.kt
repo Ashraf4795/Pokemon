@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
 class PokemonDetailsViewModel(
-    private val repo: Repository,
+    private val repository: Repository,
     private val IO: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
@@ -19,11 +19,13 @@ class PokemonDetailsViewModel(
     val pokemonDetails: LiveData<State<PokemonDetails>> = _pokemonDetails
 
 
+    //use lifecycle live data to emit new value based on @param id
+    //@param id: pokemon object id
     fun getPokemonDetails(id: Long) = liveData(IO) {
         emit(State.loading())
 
-        val pokemonDetails = repo.getPokemonDetails(id)
-        pokemonDetails.setPokemonSpecies(repo.getPokemonSpecies(id))
+        val pokemonDetails = repository.getPokemonDetails(id)
+        pokemonDetails.setPokemonSpecies(repository.getPokemonSpecies(id))
         _pokemonDetails.postValue(State.success(pokemonDetails))
 
         emit(State.success(pokemonDetails))
