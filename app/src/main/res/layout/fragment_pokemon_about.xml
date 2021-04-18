@@ -156,7 +156,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/height_value_id" />
 
         <TextView
             android:id="@+id/breeding_tv"
@@ -168,6 +168,20 @@
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/weight_tv_id"
             app:layout_constraintTop_toBottomOf="@+id/weight_tv_id" />
+
+        <TextView
+            android:id="@+id/about_tv_id"
+            style="@style/headline_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="178dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="175dp"
+            android:text="@string/about"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         <!--end egg group fields-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
