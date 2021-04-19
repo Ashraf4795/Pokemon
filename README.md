@@ -16,4 +16,3 @@ Third-party libs:
 * **Google material design**: for UI design
 
 # Resources
-•	App code link
