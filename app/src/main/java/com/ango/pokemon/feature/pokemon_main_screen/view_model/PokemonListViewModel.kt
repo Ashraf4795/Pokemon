@@ -1,5 +1,6 @@
 package com.ango.pokemon.feature.pokemon_main_screen.view_model
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -31,6 +32,7 @@ class PokemonListViewModel(
 
 
     init {
+        Log.d(TAG, "onCreateView")
         getPokemon()
     }
 
