@@ -16,3 +16,7 @@ Third-party libs:
 * **Google material design**: for UI design
 
 # Resources
+<img src="https://github.com/Ashraf4795/Pokemon/blob/develop/screenshots/splash_Screen.jpg" width="280" height="600">
+<img src="https://github.com/Ashraf4795/Pokemon/blob/develop/screenshots/pokemon_Details_Screen.jpg" width="280" height="600"> <img src="https://github.com/Ashraf4795/Pokemon/blob/develop/screenshots/pokemon_Details_Screen2.jpg" width="280" height="600">
+<img src="https://github.com/Ashraf4795/Pokemon/blob/develop/screenshots/pokemon_Details_Screen3.jpg" width="280" height="600"<imgsrc="https://github.com/Ashraf4795/Pokemon/blob/develop/screenshots/pokemon_list_Screen.jpg" width="280" height="600">
+
